@@ -1,3 +1,27 @@
+//listen for calculator button clicks
+const keys=document.querySelectorAll('.btn');
+keys.forEach(key=>key.addEventListener('click', function(){
+    populateDisplay(key)}));
+
+//addition
+function add(num1, num2){
+    display.textContent=`${num1+num2}`;
+}
+
+//subtraction
+function subtract(num1, num2){
+    display.textContent=`${num1-num2}`;
+}
+
+//multiplication
+function multiply(num1, num2){
+    display.textContent=`${num1*num2}`;
+}
+
+//divide
+function divide(num1, num2){
+    display.textContent=`${num1/num2}`;
+}
 //declare variables
 let userInput1,
 userInput2,
@@ -9,6 +33,16 @@ let entry2=[];
 let entryOperator;
 let entryStored1=false; //true/false if entry 1 is complete 1=true 0=false
 let haveOperator=false;
+
+//clear calculator entries
+function cleanCalculator(){
+    entry1.splice(0,100);
+    entry2.splice(0,100)
+    entryStored1=false;
+    haveOperator=false;
+    display.textContent='-- Cleared --';
+}
+
 
 //store first entry
 function storeNumber1(keyPressed)
@@ -50,7 +84,6 @@ function populateDisplay(keyPressed)
             storeOperator(keyPressed);
         }
     }
-
     if(entryStored1==false)
     {
     display.textContent=`${keyPressed.textContent}`;
@@ -81,29 +114,13 @@ function populateDisplay(keyPressed)
             divide(parseFloat(entry1.join('')), parseFloat(entry2.join('')));
         }
     }
+
+    if(keyPressed.textContent=='clr')
+    {
+        cleanCalculator();
+    }
+
+
+
 }
 
-//listen for calculator button clicks
-const keys=document.querySelectorAll('.btn');
-keys.forEach(key=>key.addEventListener('click', function(){
-    populateDisplay(key)}));
-
-//addition
-function add(num1, num2){
-    display.textContent=`${num1+num2}`;
-}
-
-//subtraction
-function subtract(num1, num2){
-    display.textContent=`${num1-num2}`;
-}
-
-//multiplication
-function multiply(num1, num2){
-    display.textContent=`${num1*num2}`;
-}
-
-//divide
-function divide(num1, num2){
-    display.textContent=`${num1/num2}`;
-}
