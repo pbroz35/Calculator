@@ -45,16 +45,25 @@ function operate(userInput1, operator, userInput2){
 
 }
 
-//populate display
+const display=document.querySelector('#display');
+let entry1=[];
 
-
-
-function populateDisplay()
+function storeNumber1(keyPressed)
 {
-    console.log('it is working');
-
+    entry1.push(keyPressed.textContent);
 }
 
+
+//populates calculator screen
+function populateDisplay(keyPressed)
+{
+    display.textContent=`${keyPressed.textContent}`;
+    storeNumber1(keyPressed);
+}
+
+
+//listen for calculator button clicks
 const keys=document.querySelectorAll('.btn');
-keys.forEach(key=>key.addEventListener('click', populateDisplay));
+keys.forEach(key=>key.addEventListener('click', function(){
+    populateDisplay(key)}));
 
