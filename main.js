@@ -1,3 +1,4 @@
+//declare variables
 let userInput1
 userInput2
 operator;
