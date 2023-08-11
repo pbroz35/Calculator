@@ -1,6 +1,6 @@
 //declare variables
-let userInput1
-userInput2
+let userInput1,
+userInput2,
 operator;
 
 
@@ -44,3 +44,17 @@ function operate(userInput1, operator, userInput2){
     }
 
 }
+
+//populate display
+
+
+
+function populateDisplay()
+{
+    console.log('it is working');
+
+}
+
+const keys=document.querySelectorAll('.btn');
+keys.forEach(key=>key.addEventListener('click', populateDisplay));
+
