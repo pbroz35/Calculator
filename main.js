@@ -3,53 +3,12 @@ let userInput1,
 userInput2,
 operator;
 
-
-//addition
-function add(num1, num2){
-return num1+num2;
-}
-
-//subtraction
-function subtract(num1, num2){
-    return num1-num2;
-}
-
-//multiplication
-function multiply(num1, num2){
-    return num1*num2;
-}
-
-//divide
-function divide(num1, num2){
-    return num1/num2;
-}
-
-//operate function
-
-function operate(userInput1, operator, userInput2){
-    if (operator=='+')
-    {
-        add(userInput1,userInput2);
-    }
-    if(operator=='-')
-    {
-        subtract(userInput1,userInput2);
-    }
-    if(operator=='*'){
-        multiply(userInput1,userInput2);
-    }
-    if(operator=='/')
-    {
-        divide(userInput1,userInput2);
-    }
-
-}
-
 const display=document.querySelector('#display');
 let entry1=[]; //first entry A ex. A + B, this entry is 'A'
 let entry2=[];
 let entryOperator;
 let entryStored1=false; //true/false if entry 1 is complete 1=true 0=false
+let haveOperator=false;
 
 //store first entry
 function storeNumber1(keyPressed)
@@ -68,7 +27,7 @@ function storeOperator(keyPressed)
 function storeNumber2(keyPressed)
 {
     entry2.push(keyPressed.textContent);
-    if(keyPressed.textContent=='+' || keyPressed.textContent=='-' || keyPressed.textContent=='*' || keyPressed.textContent=='/')
+    if(keyPressed.textContent=='+' || keyPressed.textContent=='-' || keyPressed.textContent=='*' || keyPressed.textContent=='/' || keyPressed.textContent=='=')
     {
         entry2.pop();
     }
@@ -80,13 +39,14 @@ function storeNumber2(keyPressed)
 //populates calculator screen
 function populateDisplay(keyPressed)
 {
-    if(keyPressed.textContent=='+' || keyPressed.textContent=='-' || keyPressed.textContent=='*' || keyPressed.textContent=='/')
+    if(keyPressed.textContent=='+' || keyPressed.textContent=='-' || keyPressed.textContent=='*' || keyPressed.textContent=='/' )
     {
         if(entryStored1==false)
         {
             console.log('operator detected!');
             entryStored1=true;
             display.textContent=`${keyPressed.textContent}`;
+            haveOperator=true;
             storeOperator(keyPressed);
         }
     }
@@ -102,12 +62,48 @@ function populateDisplay(keyPressed)
     storeNumber2(keyPressed);
     }
     
-
+    if(haveOperator==true && entryStored1==true && keyPressed.textContent=='=')
+    {
+        if(entryOperator=='+')
+        {
+            add(parseFloat(entry1.join('')), parseFloat(entry2.join('')));
+        }
+        else if(entryOperator=='-')
+        {
+            subtract(parseFloat(entry1.join('')), parseFloat(entry2.join('')));
+        }
+        else if(entryOperator=='*')
+        {
+            multiply(parseFloat(entry1.join('')), parseFloat(entry2.join('')));
+        }
+        else if(entryOperator=='/')
+        {
+            divide(parseFloat(entry1.join('')), parseFloat(entry2.join('')));
+        }
+    }
 }
-
 
 //listen for calculator button clicks
 const keys=document.querySelectorAll('.btn');
 keys.forEach(key=>key.addEventListener('click', function(){
     populateDisplay(key)}));
 
+//addition
+function add(num1, num2){
+    display.textContent=`${num1+num2}`;
+}
+
+//subtraction
+function subtract(num1, num2){
+    display.textContent=`${num1-num2}`;
+}
+
+//multiplication
+function multiply(num1, num2){
+    display.textContent=`${num1*num2}`;
+}
+
+//divide
+function divide(num1, num2){
+    display.textContent=`${num1/num2}`;
+}
